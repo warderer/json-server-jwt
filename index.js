@@ -1,0 +1,104 @@
+/* eslint-disable camelcase */
+const jsonServer = require('json-server')
+const path = require('path')
+const server = jsonServer.create()
+const source = path.join(__dirname, 'db.json')
+const router = jsonServer.router(source)
+// const router = jsonServer.router('db.json');
+const jwt = require('jsonwebtoken')
+const secret = 'your-secret-key'
+const bcrypt = require('bcrypt')
+const { v4: uuidv4 } = require('uuid')
+const { validateEmail } = require('./utils/validations')
+
+server.use(jsonServer.defaults())
+server.use(jsonServer.bodyParser)
+
+server.use((req, res, next) => {
+  if (req.method === 'POST') {
+    req.body.createdAt = Date.now()
+    req.body.updatedAt = Date.now()
+  }
+  next()
+})
+
+server.post('/login', (req, res) => {
+  const { email, password } = req.body
+
+  if (!email || !password) {
+    res.sendStatus(400)
+    return
+  }
+
+  const users = router.db.getState().users
+  const user = users.find((user) => user.email === email)
+  if (user) {
+    bcrypt.compare(password, user.password, (err, result) => {
+      if (result) {
+        const token = jwt.sign({ id: user.id, role: user.role }, secret)
+        res.send({ token })
+      } else {
+        res.status(401).send(err)
+      }
+    })
+  } else {
+    res.sendStatus(404)
+  }
+})
+
+server.post('/register', (req, res) => {
+  // const users = db.get('users').value();
+  const {
+    first_name,
+    last_name,
+    birth_date,
+    gender,
+    email,
+    password,
+    role,
+    createdAt,
+    updatedAt
+  } = req.body
+
+  if (!email || !password || (gender !== 'M' && gender !== 'F')) {
+    res.sendStatus(400)
+    return
+  }
+
+  if (!validateEmail(email)) {
+    res.status(400).send({ message: 'Invalid email format' })
+    return
+  }
+
+  const users = router.db.getState().users
+
+  const user = users.find((user) => user.email === email)
+  if (!user) {
+    bcrypt.hash(password, 10, (err, hashedPassword) => {
+      if (err) { console.log(err.stack) }
+      const user = {
+        id: uuidv4(),
+        first_name,
+        last_name,
+        gender,
+        birth_date,
+        email,
+        password: hashedPassword,
+        role: role || 'CUSTOMER',
+        createdAt,
+        updatedAt
+      }
+      router.db.get('users').push(user).write()
+      res.status(201).send({ message: 'User created successfully' })
+    })
+  } else {
+    res.status(403).send({ message: 'Duplicated email' })
+  }
+})
+
+server.use(router)
+// server.use('/api/v1', router)
+
+server.listen(3000, () => {
+  console.log('JSON Server is running')
+})

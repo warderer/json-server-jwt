@@ -1,0 +1,15 @@
+{
+  "users": [
+    {
+      "id": "d72dc936-87c9-469b-b279-0ecf04605fac",
+      "first_name": "Dr.",
+      "last_name": "Strange",
+      "gender": "M",
+      "email": "drstrange@marvel.com",
+      "password": "$2b$10$RQnTd52afxKwLsTf7W3zde6uAmQFomFpRMf0IeNbT4cwdURvwJHkm",
+      "role": "CUSTOMER",
+      "createdAt": 1672938973063,
+      "updatedAt": 1672938973063
+    }
+  ]
+}

@@ -10,6 +10,7 @@ const secret = 'your-secret-key'
 const bcrypt = require('bcrypt')
 const { v4: uuidv4 } = require('uuid')
 const { validateEmail } = require('./utils/validations')
+const { validateToken } = require('./middlewares/jwt_validation')
 
 const PORT = process.env.PORT || 3000
 
@@ -18,6 +19,7 @@ server.use(jsonServer.bodyParser)
 
 server.use((req, res, next) => {
   if (req.method === 'POST') {
+    req.body.id = uuidv4()
     req.body.createdAt = Date.now()
     req.body.updatedAt = Date.now()
   }
@@ -51,6 +53,7 @@ server.post('/login', (req, res) => {
 server.post('/register', (req, res) => {
   // const users = db.get('users').value();
   const {
+    id,
     first_name,
     last_name,
     birth_date,
@@ -79,7 +82,7 @@ server.post('/register', (req, res) => {
     bcrypt.hash(password, 10, (err, hashedPassword) => {
       if (err) { console.log(err.stack) }
       const user = {
-        id: uuidv4(),
+        id,
         first_name,
         last_name,
         gender,
@@ -96,6 +99,12 @@ server.post('/register', (req, res) => {
   } else {
     res.status(403).send({ message: 'Duplicated email' })
   }
+})
+
+server.post('/items', validateToken(secret), (req, res) => {
+  const item = req.body
+  router.db.get('items').push(item).write()
+  res.send({ message: 'Item created successfully' })
 })
 
 server.use(router)

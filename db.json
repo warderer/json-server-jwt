@@ -1,15 +1,29 @@
 {
   "users": [
     {
-      "id": "d72dc936-87c9-469b-b279-0ecf04605fac",
+      "id": "1c311551-074a-4226-9758-f0780c427612",
       "first_name": "Dr.",
       "last_name": "Strange",
       "gender": "M",
       "email": "drstrange@marvel.com",
-      "password": "$2b$10$RQnTd52afxKwLsTf7W3zde6uAmQFomFpRMf0IeNbT4cwdURvwJHkm",
+      "password": "$2b$10$eWUUn0pa93FvCflMfAoOi.pia5mX0XZo3vFIseZApqdIpjURSUpJO",
       "role": "CUSTOMER",
-      "createdAt": 1672938973063,
-      "updatedAt": 1672938973063
+      "createdAt": 1672949755981,
+      "updatedAt": 1672949755981
+    }
+  ],
+  "items": [
+    {
+      "product_name": "Awesome Granite Bacon",
+      "description": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
+      "price": 962,
+      "category": "Kids",
+      "brand": "Osinski - Prosacco",
+      "sku": "e9cbfac1-301a-42c3-b94a-711a39dc7ed1",
+      "image": "https://i.pinimg.com/originals/eb/83/be/eb83be580847bcdc4c8f403c8085d3c8.jpg",
+      "id": "9128a9a7-9cb6-4f93-bb4d-f90f26483ae8",
+      "createdAt": 1672949696839,
+      "updatedAt": 1672949696839
     }
   ]
 }

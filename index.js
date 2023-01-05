@@ -11,6 +11,8 @@ const bcrypt = require('bcrypt')
 const { v4: uuidv4 } = require('uuid')
 const { validateEmail } = require('./utils/validations')
 
+const PORT = process.env.PORT || 3000
+
 server.use(jsonServer.defaults())
 server.use(jsonServer.bodyParser)
 
@@ -99,6 +101,6 @@ server.post('/register', (req, res) => {
 server.use(router)
 // server.use('/api/v1', router)
 
-server.listen(3000, () => {
-  console.log('JSON Server is running')
+server.listen(PORT, () => {
+  console.log('JSON Server is running on http://localhost:' + PORT)
 })

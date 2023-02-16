@@ -107,6 +107,25 @@ server.post('/items', validateToken(secret), (req, res) => {
   res.send({ message: 'Item created successfully' })
 })
 
+// Elimino el campo password de la respuesta de obtener un usuario
+server.get('/users/:id', (req, res) => {
+  const users = router.db.getState().users
+  const user = users.find(u => u.id === req.params.id)
+  if (!user) return res.status(404).send('User not found')
+  const { password, ...userRest } = user // Remuevo el password de la información del usuario
+  res.send(userRest) // Envio todos los atributos del usuario, sin el password
+})
+
+// Elimino el campo password de la lista de usuarios
+server.get('/users', (req, res) => {
+  const users = router.db.getState().users
+  const userRest = users.map(user => {
+    delete user.password // Elimino el atributo de password
+    return user
+  })
+  res.send(userRest) // Envio todos los atributos del usuario, sin el password
+})
+
 server.use(router)
 // server.use('/api/v1', router)
 

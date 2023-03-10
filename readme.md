@@ -4,8 +4,9 @@ El objetivo es crear un mock de una API Rest de eCommerce que haga uso de autent
 
 Para usarlo:
 1) Haz git clone del repositorio: `git clone https://github.com/warderer/json-server-jwt.git`
-2) Instala las dependencias con el comando: `npm install`
-3) Ejecuta el servidor con el comando: `npm run dev`
+2) Desde la terminal, recuerda entrar a la carpeta del proyecto: `cd json-server-jwt`
+3) Instala las dependencias con el comando: `npm install`
+4) Ejecuta el servidor con el comando: `npm run dev`
 
 ## Endpoints
 Por defecto el servidor se ejecuta en: http://localhost:3000

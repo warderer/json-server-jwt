@@ -18,7 +18,7 @@
       "gender": "M",
       "email": "superman@dc.com",
       "password": "$2b$10$rk4MklBt2DtAq4Fh/okYYul54DSJWh1z2jRf9qIWKuygOEQI2FR5C",
-      "role": "CUSTOMER",
+      "role": "ADMIN",
       "createdAt": 1674323738966,
       "updatedAt": 1674323738966
     }

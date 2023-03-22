@@ -39,7 +39,7 @@ El correo es único, si se repite devolverá error al intentar registrar uno ya 
 ```
 {
   "email": "drstrange@marvel.com",
-  "password": "multiverso",
+  "password": "multiverso"
 }
 ```
 Al iniciar sesión se devolvera un JWT que contiene, entre otras cosas el `id` y `role` del usuario en el payload.

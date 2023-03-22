@@ -119,11 +119,11 @@ server.get('/users/:id', (req, res) => {
 // Elimino el campo password de la lista de usuarios
 server.get('/users', (req, res) => {
   const users = router.db.getState().users
-  const userRest = users.map(user => {
-    delete user.password // Elimino el atributo de password
-    return user
+  const usersWithoutPassword = users.map(user => {
+    const { password, ...userRest } = user
+    return userRest
   })
-  res.send(userRest) // Envio todos los atributos del usuario, sin el password
+  res.send(usersWithoutPassword) // Envio todos los atributos del usuario, sin el password
 })
 
 server.use(router)

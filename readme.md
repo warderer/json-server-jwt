@@ -139,3 +139,7 @@ Por defecto la API ya viene con 2 usuarios para poder comenzar a probar inmediat
   "password": "superman"
 }
 ```
+
+## Créditos
+Autor: César Guerra
+Web: http://www.cesarguerra.mx
